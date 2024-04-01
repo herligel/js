@@ -13,11 +13,26 @@ class level3 extends Phaser.Scene {
  
 
         // Step 2 : Preload any images here
+
+        this.load.audio("oof", "assets/oof.mp3");
+        this.load.audio("kaching", "assets/kaching.mp3");
+
+
         this.load.image("interiorPng", "assets/Interiors_free_32x32.png")
         this.load.image("wallsPng", "assets/Room_Builder_32x32.png")
         this.load.image("elementsPng", "assets/16_Grocery_store_32x32.png" )
 
         this.load.spritesheet("gen", "assets/eliza.png", {
+            frameWidth: 64,
+            frameHeight: 64,
+          });
+        
+          this.load.spritesheet("pillow", "assets/cushion.png", {
+            frameWidth: 102,
+            frameHeight: 112,
+          });
+
+          this.load.spritesheet("asshole", "assets/asshole.png", {
             frameWidth: 64,
             frameHeight: 64,
           });
@@ -33,6 +48,22 @@ class level3 extends Phaser.Scene {
     //Step 3 - Create the map from main
     let map = this.make.tilemap({ key: "world" });
 
+    this.oofSnd = this.sound.add("oof");
+    this.kachingSnd = this.sound.add("kaching");
+
+    this.anims.create({
+      key: "fireburn",
+      frames: this.anims.generateFrameNumbers("asshole", { start: 0, end: 5 }),
+      frameRate: 5,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "pillow",
+      frames: this.anims.generateFrameNumbers("pillow", { start: 0, end: 5 }),
+      frameRate: 5,
+      repeat: -1,
+    });
 
     
     // Step 4 Load the game tiles
@@ -90,9 +121,38 @@ class level3 extends Phaser.Scene {
         repeat: -1,
       });
   
+      
       var start = map.findObject("objectLayer", (obj) => obj.name === "start");
       this.player = this.physics.add.sprite(start.x, start.y, "gen");
        window.player = this.player;
+
+       var pillow = map.findObject("objectLayer", (obj) => obj.name === "pillow");
+       this.pillow1=this.physics.add.sprite(pillow.x, pillow.y, 'pillow').setScale (0.5)
+
+       var asshole = map.findObject("objectLayer", (obj) => obj.name === "asshole");
+
+       this.physics.add.overlap(this.player, this.pillow1, this.hitpillow, null, this)
+
+    this.enemy1 = this.physics.add
+    .sprite(asshole.x, asshole.y, "asshole")
+    .play("fireburn");
+
+    this.physics.add.overlap(
+      this.player,
+      this.enemy1,
+      this.hitFire,
+      null,
+      this
+    );
+  
+    this.tweens.add({
+      targets: this.enemy1,
+      x: 250,
+      //flipX: true,
+      yoyo: true,
+      duration: 2000,
+      repeat: -1,
+    });
 
 
       this.wallborderLayer.setCollisionByExclusion(-1, true);
@@ -202,6 +262,7 @@ class level3 extends Phaser.Scene {
              this
            );
            
+      
       } // end of create //
 
     update () {
@@ -253,8 +314,27 @@ class level3 extends Phaser.Scene {
           }
     } // end of update // 
 
+    hitFire(player, item) {
+      console.log("Hit fire!!!");
+      this.oofSnd.play()
+      this.cameras.main.shake(200);
+      item.disableBody(true, true); // remove fire
+      this.scene.start("lose")
+      return false;
+    }
+
+    
+  hitpillow(player, item) {
+    console.log("Hit pillow!!!");
+    this.kachingSnd.play()
+    // this.cameras.main.shake(200);
+    item.disableBody(true, true); // remove fire
+    return false;
+  }
+
     level22(player, tile) {
       console.log("level22 function");
       this.scene.start("level22");
     }
   }
+

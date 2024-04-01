@@ -21,10 +21,11 @@ class level2 extends Phaser.Scene {
       frameHeight: 64,
     });
 
-    this.load.spritesheet("fire", "assets/asshole.png", {
+    this.load.spritesheet("asshole", "assets/asshole.png", {
       frameWidth: 64,
       frameHeight: 64,
     });
+
   }
 
   // end of preload //
@@ -34,7 +35,7 @@ class level2 extends Phaser.Scene {
 
     this.anims.create({
       key: "fireburn",
-      frames: this.anims.generateFrameNumbers("fire", { start: 0, end: 5 }),
+      frames: this.anims.generateFrameNumbers("asshole", { start: 0, end: 5 }),
       frameRate: 5,
       repeat: -1,
     });
@@ -118,10 +119,10 @@ class level2 extends Phaser.Scene {
     this.player = this.physics.add.sprite(start.x, start.y, "gen");
     window.player = this.player;
 
-    var fire1 = map.findObject("objectLayer", (obj) => obj.name === "fire1");
+    var asshole = map.findObject("objectLayer", (obj) => obj.name === "asshole");
 
     this.enemy1 = this.physics.add
-    .sprite(fire1.x, fire1.y, "fire")
+    .sprite(asshole.x, asshole.y, "asshole")
     .play("fireburn");
 
 
@@ -135,7 +136,7 @@ class level2 extends Phaser.Scene {
 
   this.tweens.add({
     targets: this.enemy1,
-    x: 100,
+    x: 500,
     //flipX: true,
     yoyo: true,
     duration: 1000,
@@ -223,6 +224,8 @@ class level2 extends Phaser.Scene {
              },
              this
            );
+
+        
            
   } // end of create //
 

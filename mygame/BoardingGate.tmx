@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="60" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="2">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="60" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="4">
  <editorsettings>
   <export target="assets/BoardingGate.tmj" format="json"/>
  </editorsettings>
@@ -93,6 +93,12 @@
  </layer>
  <objectgroup id="7" name="objectLayer">
   <object id="1" name="start" x="38.8664" y="290.003">
+   <point/>
+  </object>
+  <object id="2" name="bitch" x="1515.79" y="174.899">
+   <point/>
+  </object>
+  <object id="3" name="backpack" x="1517.28" y="290.003">
    <point/>
   </object>
  </objectgroup>

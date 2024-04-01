@@ -1,19 +1,17 @@
-class instructionspage extends Phaser.Scene {
+class win extends Phaser.Scene {
 
     constructor ()
     {
-        super({ key: "instructionspage" });
+        super({ key: "win" });
     }
 
     preload() {
-      this.load.image('instructionspage', 'assets/instructionspage.png')
-
-    
+      this.load.image('win', 'assets/winpage.png')
   
   }
   
  create () {
-      this.instructions1 = this.add.image(0, 0, 'instructionspage').setOrigin(0, 0).setScale(1);
+      this.win1 = this.add.image(0, 0, 'win').setOrigin(0, 0).setScale(1);
      
       console.log("menu page - welcome");
       let map = this.make.tilemap({ key: "world" });
@@ -22,8 +20,8 @@ class instructionspage extends Phaser.Scene {
       
       spaceDown.on('down', function(){
       console.log("Spacebar pressed, go to next menu");
-      this.scene.stop("instructionspage");
-      this.scene.start("controlspage");
+      this.scene.stop("win");
+      this.scene.start("intropage");
       }, this );
   
    }

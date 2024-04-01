@@ -20,6 +20,7 @@ class level22 extends Phaser.Scene {
       frameWidth: 64,
       frameHeight: 64,
     });
+
   }
 
   // end of preload //
@@ -186,6 +187,7 @@ class level22 extends Phaser.Scene {
              },
              this
            );
+
   } // end of create //
 
   update() {

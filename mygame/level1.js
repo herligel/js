@@ -9,6 +9,13 @@ class level1 extends Phaser.Scene {
     this.load.tilemapTiledJSON("level1", "assets/InformationCounter.tmj");
 
     // Step 2 : Preload any images here
+
+   
+
+    this.load.audio("oof", "assets/oof.mp3");
+
+    this.load.audio("kaching", "assets/kaching.mp3");
+
     this.load.image("minielements", "assets/16_Grocery_store_32x32.png");
     this.load.image("biggerelements", "assets/22_Museum_32x32.png");
     this.load.image("wallsandfloors", "assets/Room_Builder_32x32.png");
@@ -25,16 +32,49 @@ class level1 extends Phaser.Scene {
       frameWidth: 64,
       frameHeight: 64,
     });
+
+    this.load.spritesheet("ticket", "assets/ticket.png", {
+      frameWidth: 102,
+      frameHeight: 64,
+    });
+
+    this.load.spritesheet("passport", "assets/passport.png", {
+      frameWidth: 102,
+      frameHeight: 64,
+    });
+
   }
 
+  
   // end of preload //
 
   create() {
     console.log("animationScene");
 
+    
+this.oofSnd = this.sound.add("oof");
+
+this.kachingSnd = this.sound.add("kaching");
+
+
+
     this.anims.create({
       key: "fireburn",
       frames: this.anims.generateFrameNumbers("fire", { start: 0, end: 5 }),
+      frameRate: 5,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "ticket",
+      frames: this.anims.generateFrameNumbers("ticket", { start: 0, end: 5 }),
+      frameRate: 5,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "passport",
+      frames: this.anims.generateFrameNumbers("passport", { start: 0, end: 5 }),
       frameRate: 5,
       repeat: -1,
     });
@@ -110,12 +150,33 @@ class level1 extends Phaser.Scene {
       repeat: -1,
     });
 
+    this.anims.create({
+      key: "enemy1",
+      frames: this.anims.generateFrameNumbers("enemy1", { start: 105, end: 112 }),
+      frameRate: 5,
+      repeat: -1,
+    });
+
     var start = map.findObject("objectLayer", (obj) => obj.name === "start");
     this.player = this.physics.add.sprite(start.x, start.y, "gen");
     window.player = this.player;
 
     var fire1 = map.findObject("objectLayer", (obj) => obj.name === "fire1");
     var fire2 = map.findObject("objectLayer", (obj) => obj.name === "fire2");
+
+    var ticket = map.findObject("objectLayer", (obj) => obj.name === "ticket");
+    this.ticket1=this.physics.add.sprite(ticket.x, ticket.y, 'ticket').setScale (0.5)
+
+    var passport = map.findObject("objectLayer", (obj) => obj.name === "passport");
+    this.passport1=this.physics.add.sprite(passport.x, passport.y, 'passport').setScale (0.5)
+
+    window.player = this.player;
+    this.player.body.setSize(this.player.width * 0.2, this.player.height * 0.6);
+
+// When object overlap with player, call the this.collectFire function
+this.physics.add.overlap(this.player, this.ticket1, this.hitticket, null, this)
+
+this.physics.add.overlap(this.player, this.passport1, this.hitpassport, null, this)
 
     this.enemy1 = this.physics.add
       .sprite(fire1.x, fire1.y, "fire")
@@ -141,7 +202,7 @@ class level1 extends Phaser.Scene {
 
     this.tweens.add({
       targets: this.enemy1,
-      x: 100,
+      x: 500,
       //flipX: true,
       yoyo: true,
       duration: 1000,
@@ -150,10 +211,10 @@ class level1 extends Phaser.Scene {
 
     this.tweens.add({
       targets: this.enemy2,
-      y: 100,
+      y: 500,
       //flipX: true,
       yoyo: true,
-      duration: 1000,
+      duration: 1500,
       repeat: -1
   })
 
@@ -168,7 +229,6 @@ class level1 extends Phaser.Scene {
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    this.player.body.setSize(this.player.width * 0.2, this.player.height * 0.6);
 
     this.cameras.main.startFollow(this.player);
 
@@ -228,7 +288,7 @@ class level1 extends Phaser.Scene {
              },
              this
            );
-           
+
      } // end of create //
 
   update() {
@@ -257,11 +317,31 @@ class level1 extends Phaser.Scene {
 
   hitFire(player, item) {
     console.log("Hit fire!!!");
+    this.oofSnd.play()
     this.cameras.main.shake(200);
     item.disableBody(true, true); // remove fire
+    this.scene.start("lose")
     return false;
   }
 
+  //this function is called when player touch the heart
+   hitticket(player, item) {
+    console.log("Hit ticket!!!");
+    this.kachingSnd.play()
+    // this.cameras.main.shake(200);
+    item.disableBody(true, true); // remove ticket
+    return false;
+
+   }
+
+   hitpassport(player, item) {
+    console.log("Hit passport!!!");
+    this.kachingSnd.play()
+    // this.cameras.main.shake(200);
+    item.disableBody(true, true); // remove ticket
+    return false;
+
+   }
   level2(player, tile) {
     console.log("level2 function");
     this.scene.start("level2");

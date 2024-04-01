@@ -10,10 +10,12 @@ let config = {
         }
     },
     backgroundColor: '#000000',
-    scene: [intropage,instructionspage,controlspage,level1,level2,level3,level4,level22]
+    scene: [intropage,instructionspage,controlspage,lose,win,level1,level2,level3,level4,level22]
 
 };
-
-
 // preloadScene
 let game = new Phaser.Game(config);
+window.backpack=0
+window.ticket=0
+window.passport=0
+window.cushion=0

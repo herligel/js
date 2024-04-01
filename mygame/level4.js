@@ -9,6 +9,11 @@ class level4 extends Phaser.Scene {
     this.load.tilemapTiledJSON("level4", "assets/BoardingGate.tmj");
 
     // Step 2 : Preload any images here
+    this.load.audio("oof", "assets/oof.mp3");
+
+    this.load.audio("kaching", "assets/kaching.mp3");
+
+  
     this.load.image("Escalator", "assets/Buildings32x32.png");
     this.load.image("Elements", "assets/22_Museum_32x32.png");
     this.load.image("MoreElements", "assets/23_Tevelision_and_Film_Studio_32x32.png");
@@ -24,20 +29,42 @@ class level4 extends Phaser.Scene {
       frameHeight: 64,
     });
 
-    this.load.spritesheet("fire", "assets/asshole.png", {
+    this.load.spritesheet("bitch", "assets/bitch.png", {
       frameWidth: 64,
       frameHeight: 64,
     });
+
+
+    this.load.spritesheet("backpack", "assets/backpack.png", {
+      frameWidth: 102,
+      frameHeight: 64,
+    });
+
+
+
   }
+
+  
 
   // end of preload //
 
   create() {
     console.log("animationScene");
 
+    this.oofSnd = this.sound.add("oof");
+    this.kachingSnd = this.sound.add("kaching")
+
     this.anims.create({
       key: "fireburn",
-      frames: this.anims.generateFrameNumbers("fire", { start: 0, end: 5 }),
+      frames: this.anims.generateFrameNumbers("bitch", { start: 0, end: 5 }),
+      frameRate: 5,
+      repeat: -1,
+    });
+
+
+    this.anims.create({
+      key: "backpack",
+      frames: this.anims.generateFrameNumbers("backpack", { start: 0, end: 5 }),
       frameRate: 5,
       repeat: -1,
     });
@@ -125,14 +152,20 @@ class level4 extends Phaser.Scene {
       repeat: -1,
     });
 
+    var backpack = map.findObject("objectLayer", (obj) => obj.name === "backpack");
+       this.backpack1=this.physics.add.sprite(backpack.x, backpack.y, 'backpack').setScale (0.5)
+
+
    var start = map.findObject("objectLayer", (obj) => obj.name === "start");
     this.player = this.physics.add.sprite(start.x, start.y, "gen");
     window.player = this.player;
 
-    var fire1 = map.findObject("objectLayer", (obj) => obj.name === "fire1");
+    var bitch = map.findObject("objectLayer", (obj) => obj.name === "bitch");
+
+    this.physics.add.overlap(this.player, this.backpack1, this.hitbackpack, null, this)
 
     this.enemy1 = this.physics.add
-    .sprite(fire1.x, fire1.y, "fire")
+    .sprite(bitch.x, bitch.y, "bitch")
     .play("fireburn");
 
 
@@ -146,10 +179,10 @@ class level4 extends Phaser.Scene {
 
   this.tweens.add({
     targets: this.enemy1,
-    y: 100,
+    y: 300,
     //flipX: true,
     yoyo: true,
-    duration: 1000,
+    duration: 1500,
     repeat: -1,
   });
 
@@ -225,6 +258,7 @@ class level4 extends Phaser.Scene {
              },
              this
            );
+
       
     } // end of create //
 
@@ -246,13 +280,29 @@ class level4 extends Phaser.Scene {
       this.player.anims.stop();
     }
 
+    if (this.player.x > 1753 && 
+      this.player.x < 1755 && 
+      this.player.y > 157.8) {
+      console.log("flight");
+      this.scene.start("win");
+      }
    
   } // end of update //
 
   
   hitFire(player, item) {
     console.log("Hit fire!!!");
+    this.oofSnd.play()
     this.cameras.main.shake(200);
+    item.disableBody(true, true); // remove fire
+    this.scene.start("lose")
+    return false;
+  }
+
+  hitbackpack(player, item) {
+    console.log("Hit backpack!!!");
+    this.kachingSnd.play()
+    // this.cameras.main.shake(200);
     item.disableBody(true, true); // remove fire
     return false;
   }
