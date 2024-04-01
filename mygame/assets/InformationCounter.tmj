@@ -183,8 +183,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":445.189406637613,
-                 "y":253.16795172645
+                 "x":445.189,
+                 "y":253.168
                 }, 
                 {
                  "height":0,
@@ -195,8 +195,32 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":618.974187060007,
-                 "y":573.918873617164
+                 "x":618.974,
+                 "y":573.919
+                }, 
+                {
+                 "height":0,
+                 "id":4,
+                 "name":"ticket",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":537.446,
+                 "y":259.604
+                }, 
+                {
+                 "height":0,
+                 "id":5,
+                 "name":"passport",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1136.03754609454,
+                 "y":397.988602078445
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -205,7 +229,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":4,
+ "nextobjectid":6,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

@@ -171,8 +171,32 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":432.316459939658,
-                 "y":596.446530338585
+                 "x":432.316,
+                 "y":596.447
+                }, 
+                {
+                 "height":0,
+                 "id":2,
+                 "name":"pillow",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":239.222259470332,
+                 "y":275.695608447871
+                }, 
+                {
+                 "height":0,
+                 "id":3,
+                 "name":"asshole",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":493.462956754945,
+                 "y":335.769359704995
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -180,8 +204,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":9,
- "nextobjectid":2,
+ "nextlayerid":10,
+ "nextobjectid":4,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

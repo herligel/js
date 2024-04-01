@@ -127,14 +127,26 @@
                 {
                  "height":0,
                  "id":2,
-                 "name":"fire1",
+                 "name":"bitch",
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1515.78947368421,
-                 "y":174.898785425101
+                 "x":1515.79,
+                 "y":174.899
+                }, 
+                {
+                 "height":0,
+                 "id":3,
+                 "name":"backpack",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1517.2843350981,
+                 "y":290.003114294612
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -143,7 +155,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":3,
+ "nextobjectid":4,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
