@@ -190,8 +190,8 @@ class level4 extends Phaser.Scene {
     // this.WallsLayer.setCollisionByExclusion(-1, true);
     // this.physics.add.collider(this.player, this.WallsLayer);
 
-    // this.WallbordersLayer.setCollisionByExclusion(-1, true);
-    // this.physics.add.collider(this.player, this.WallbordersLayer);
+    //this.WallbordersLayer.setCollisionByExclusion(-1, true);
+    this.physics.add.collider(this.player, this.WallbordersLayer);
 
     this.ElementsLayer.setCollisionByExclusion(-1, true);
     this.physics.add.collider(this.player, this.ElementsLayer);
